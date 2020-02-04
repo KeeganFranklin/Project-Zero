@@ -188,6 +188,8 @@ int builtin_cmd(char **argv)
     } else if(!strcmp(argv[0], "jobs")) {
 	    listjobs(jobs);
 	    return 1;
+    } else if(!strcmp(argv[0], "bg")) {
+    } else if(!strcmp(argv[0], "fg")) {
     }
     return 0;     /* not a builtin command */
 }
