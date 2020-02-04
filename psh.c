@@ -158,6 +158,12 @@ int builtin_cmd(char **argv)
     // strcmp returns 0 if two strings are equal
     if (!strcmp(argv[0], "quit")) {
         exit(0); 
+	    
+	    
+	// Keegan stopped driving and Juan starts
+    } else if(!strcmp(argv[0], "jobs")) {
+	    
+	    return 1;
     }
     return 0;     /* not a builtin command */
 }
