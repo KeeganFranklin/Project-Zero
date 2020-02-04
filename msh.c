@@ -172,16 +172,22 @@ int builtin_cmd(char **argv)
     char* command = argv[0];
     if (!strcmp(command, "quit")) {
         exit(0);
-    } else if (!strcmp(command, "jobs")) {
-        for (int i = 0; i < MAXJOBS; i++) {
-            if (jobs[i].state == BG) {
-                    printf("%s", jobs[i].cmdline); 
-                }
-            }
-            return 1; 
-    } else if (!strcmp(command, "bg") || !strcmp(command, "fg")) {
-        do_bgfg(argv); 
-        return 1; 
+//     } else if (!strcmp(command, "jobs")) {
+//         for (int i = 0; i < MAXJOBS; i++) {
+//             if (jobs[i].state == BG) {
+//                     printf("%s", jobs[i].cmdline); 
+//                 }
+//             }
+//             return 1; 
+//     } else if (!strcmp(command, "bg") || !strcmp(command, "fg")) {
+//         do_bgfg(argv); 
+//         return 1; 
+	    
+//     }
+	
+    } else if(!strcmp(argv[0], "jobs")) {
+	    listjobs(jobs);
+	    return 1;
     }
     return 0;     /* not a builtin command */
 }
