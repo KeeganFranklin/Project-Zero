@@ -1,0 +1,59 @@
+Programming Log for:
+Keegan Frankling and Juan Nava
+
+02/03/2020
+1:00 PM - 5:00 PM (4 Hours)
+Schedule:
+Juan	20 Minutes
+Keegan 	30 Minutes
+Juan 	30 Minutes
+Keegan	1 Hour
+Juan	40 Minutes
+Keegan	20 Minutes
+Juan	10 Minutes
+Keegan	30 Minutes
+
+02/04/2020
+5:00 PM - 8:00 PM (3 Hours)
+Schedule:
+Keegan	30 Minutes
+Juan	20 Minutes
+Keegan	20 Minutes
+Juan	35 Minutes
+Keegan	20 Minutes
+Juan	40 Minutes
+Keegan	15 Minutes
+
+02/09/2020
+2:00 PM - 6:00 PM (4 Hours)
+Schedule:
+Keegan	20 Minutes
+Juan	50 Minutes
+Keegan	35 Minutes
+Juan	30 Minutes
+Keegan	20 Minutes
+Juan	20 Minutes
+Keegan	30 Minutes
+Juan	20 Minutes
+Keegan	15 Minutes
+
+
+02/10/2020
+1:00 PM - 4:00 PM (3 Hours)
+Schedule:
+Juan	30 Minutes
+Keegan	20 Minutes
+Juan	10 Minutes
+Keegan	40 Minutes
+Juan	20 Minutes
+Keegan	10 Minutes
+Juan	20 Minutes
+Keegan	30 Minutes
+
+
+02/12/2020
+1:00 PM - 2:30 PM (1.5 Hours)
+Schedule:
+No new program was added today, just
+checking our output and comparing
+them to the reference output.
