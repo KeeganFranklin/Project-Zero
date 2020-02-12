@@ -54,19 +54,18 @@ int main(int argc, char **argv)
         switch (c) {
         case 'h':             /* print help message */
             usage();
-	    break;
+	        break;
         case 'v':             /* emit additional diagnostic info */
             verbose = 1;
-	    break;
+	        break;
         case 'p':             /* don't print a prompt */
             emit_prompt = 0;  /* handy for automatic testing */
-	    break;
-	default:
+	        break;
+	    default:
             usage();
-	}
+	    }
     }
-
-
+    
     /* This one provides a clean way to kill the shell */
     Signal(SIGQUIT, sigquit_handler); 
 
@@ -104,43 +103,57 @@ int main(int argc, char **argv)
 */
 void eval(char *cmdline) 
 {   
-    // Keegan Franklin driving
+    /* Keegan driving 
+    * Variables to tell us if an input is a command, a background job,
+    * the status of a pid, and the pid. The argv variable will hold
+    * the input from the user.
+    * 
+    * Influenced by eval function in B&O pg. 791
+    */
     int isCommand, isBG, status; 
-    // B&O page 791 eval() code
     char *argv[MAXARGS];
     pid_t pid; 
 
+    /* Call parseline to read the input from the user store it into
+    * argv, and save the return value to isBG. Afterwards send the
+    * array of strings to check if the first string is a command. 
+    */
     isBG = parseline(cmdline, argv); 
     isCommand = builtin_cmd(argv); 
+
+    /*
+    * If the first word of the input was a command, our shell should
+    * handle it. Otherwise, we should execute the file at the pathname.
+    */
     if (!isCommand) {
 
-        // Juan driving now
-        // Create a child process
-        pid = fork(); // Creater a wrapper function for fork(), Fork()
+        /* Juan driving
+        * Create a child process and save the pid.
+        */
+        pid = fork();
 
-        // We are in the child process
+        /* If we are in the child process we should execute the file.
+        * Otherwise, we go into the parent process section.
+        */
         if(pid == 0) {
+
+            /* In the child process execute the file at the pathname
+            * and exit the program with an error message if the
+            * execution failed.
+            */
             if(execve(argv[0], argv, environ) < 0) {
-                // execve has returned with an issue
                 printf("%s: is not a command.\n", argv[0]);
-                exit(0); // Maybe we do not need exit(0)
+                exit(0);
             }
-        } else { // else we are in the parent process
-            if (!isBG) { // !isBG will take over
-                if(waitpid(pid, &status, 0) < 0) { // ERROR CHECKING
 
-                    // Juan done driving
-                    // Keegan driving 
-                    // if there is an error with the child, then tell the teacher
-
-                    // code: do something
-
-                }
+        /* In the parent process check if the first word is a background
+        * or foreground job. Here we wait if it's a foreground job.
+        */
+        } else {
+            if (!isBG) {
+                waitpid(pid, &status, 0);
             }
         }
-
-
-
     }
     return;
 }
@@ -154,17 +167,15 @@ void eval(char *cmdline)
  */
 int builtin_cmd(char **argv) 
 {
-    // Keegan driving now
-    // strcmp returns 0 if two strings are equal
+    /* Keegan driving now
+    * If the first word is "quit" then exit program.
+    * The strcmp function returns 0 if two strings are equal.
+    */
     if (!strcmp(argv[0], "quit")) {
         exit(0); 
     }
     return 0;     /* not a builtin command */
 }
-
-
-
-
 
 /***********************
  * Other helper routines
@@ -195,6 +206,3 @@ void sigquit_handler(int sig)
        exit(-999);
     exit(1);
 }
-
-
-

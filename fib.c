@@ -54,73 +54,91 @@ int main(int argc, char **argv)
  */
 static void doFib(int n, int doPrint)
 {
-    // Juan Nava driving
-    pid_t pid1;
-    pid_t pid2;
-    int total = 0;
+    /* Juan driving
+    * Variables for processes, keeping track of status, and total (sum).
+    */
+    pid_t pid1, pid2;
+    int status, total = 0;
 
-    int status; //you can just have this i guess
-
+    /* Base case where n = 0
+    * Print the value if doPrint is non-zero
+    * Exit function with exit value being 0
+    */
     if(n == 0) {
         if(doPrint) {
-            printf("0\n"); // Not sure if need to get out yet since it's a base case
+            printf("0\n");
         }
-        exit(0); // This makes the exit status equal 0
+        exit(0);
+
+    /* Base case where n = 1
+    * Print the value if doPrint is non-zero
+    * Exit function with exit value being 1
+    */
     } else if(n == 1) {
         if(doPrint) {
             printf("0\n");
         }
-        exit(1); // This makes the exit status equal 1
+        exit(1);
+
+    /* Keegan driving
+    * If none of the base cases are true create two processes with fork.
+    * After forking two processes and waiting for them to finish, get
+    * the exit status of each and add it to total.
+    */
     } else {
-        // Focus on call with n - 1
+        /* Fork the first child to call doFib for n - 1 and if
+        * we are in this child process call the function again.
+        */
         pid1 = fork();
 
-        // If we are in this child process call the function again
         if(pid1 == 0) {
-            // I'm sure we're only supposed to print once
             doFib(n - 1, 0);
         }
 
-        // Focus on call with n - 2
+        /* Fork the second child to call doFib for n - 2 and if
+        * we are in this child process call the function again.
+        */
         pid2 = fork();
 
-        // If we are in this child process call the function again
         if(pid2 == 0) {
             doFib(n - 2, 0);
         }
 
-        /* None of the if statements were entered so we are in the
-        parent process
-        
-        The parent has to wait for the child process to finish
-        so we can get its exit status
+        /* Since we have passed the if-statements, we are in the parent
+        * process. The parent process will to have wait for each child
+        * to finish and then record their exit status.
+        * 
+        * First wait for child 1
         */
         waitpid(pid1, &status, 0);
 
-        /* Once we know a child process has terminated properly
-        We can get the exit status of that child and it to 
-        this version of total
+        /* Once a child process has terminated properly we can get the
+        * exit status of that child and add it to this version of total.
         */
         if(WIFEXITED(status)) {
             total += WEXITSTATUS(status);
         }
 
+        /* Waiting for the second child and get the exit status to add
+        * to the parent process' version of total.
+        */
         waitpid(pid2, &status, 0);
 
         if(WIFEXITED(status)) {
             total += WEXITSTATUS(status);
         }
 
+        /* Juan driving
+        * Print the total that was aqcuired from the child processes
+        * and the potential other processes the children created if
+        * doPrint is non-zero. Finally exit the function with the
+        * exit status being the total of this parent process.
+        */
         if(doPrint) {
-            printf("%d\n", total);// Again not sure if need to get out yet since it's a base case
+            printf("%d\n", total);
         }
-        exit(total); // return this as the exit status for the parent
-
-        // Juan Nava has stopped driving
-
+        exit(total);
     }
-    
-  
 }
 
 
