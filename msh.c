@@ -1,7 +1,9 @@
 /* 
  * msh - A mini shell program with job control
- * 
- * <Put your name and login ID here>
+ *
+ * Juan Nava jNav56
+ * Keegan Franklin kdf937
+ *
  */
 #include <stdio.h>
 #include <stdlib.h>
